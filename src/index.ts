@@ -4,6 +4,8 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import OAuthProvider from "@cloudflare/workers-oauth-provider";
 
+// trigger preview url?
+
 export class MyMCP extends McpAgent {
 	server = new McpServer({
 		name: "Demo",
