@@ -10,10 +10,36 @@ export class MyMCP extends McpAgent {
 		version: "1.0.0",
 	});
 
+	initialState = {
+		counter: 1,
+	};
+	
+
 	async init() {
-		this.server.tool("add", { a: z.number(), b: z.number() }, async ({ a, b }) => ({
-			content: [{ type: "text", text: String(a + b) }],
-		}));
+		this.server.resource(`counter`, `mcp://resource/counter`, (uri) => {
+			return {
+			  contents: [{ uri: uri.href, text: String(this.state.counter) }],
+			};
+		  });
+
+		  this.server.tool(
+			"add",
+			"Add to the counter, stored in the MCP",
+			{ a: z.number() },
+			async ({ a }) => {
+			  this.setState({ ...this.state, counter: this.state.counter + a });
+	  
+			  return {
+				content: [
+				  {
+					type: "text",
+					text: String(`Added ${a}, total is now ${this.state.counter}`),
+				  },
+				],
+			  };
+			},
+		  );
+
 	}
 }
 
