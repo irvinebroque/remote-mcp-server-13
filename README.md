@@ -12,6 +12,8 @@ git clone git@github.com:cloudflare/ai.git
 cd ai
 npm install
 
+
+
 # run locally
 npx nx dev remote-mcp-server
 ```
